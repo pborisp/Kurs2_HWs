@@ -1,26 +1,29 @@
 package org.skypro.skyshop;
 
 import org.skypro.skyshop.basket.ProductBasket;
+import org.skypro.skyshop.product.DiscountedProduct;
 import org.skypro.skyshop.product.Product;
+import org.skypro.skyshop.product.SimpleProduct;
+import org.skypro.skyshop.product.fixPriceProduct;
 
 public class Ap {
     public static void main(String[] args) {
-        Product table = new Product("Стол", 15000);
-        Product chair = new Product("Стул", 7000);
-        Product tv = new Product("телевизор", 75000);
+        Product table = new SimpleProduct("Стол", 15000);
+        Product chair = new SimpleProduct("Стул", 7000);
+        Product tv = new SimpleProduct("телевизор", 75000);
+        Product phone = new DiscountedProduct("телефон", 90000, 30);
+        Product sofa = new DiscountedProduct("диван", 49000, 25);
+        Product lamp = new fixPriceProduct("светильник");
 
         // объект корзина
         Product[] basketProduct = new Product[5];
-        for (int i = 0; i < basketProduct.length; i++) {
-            basketProduct[i] = null;
-        }
 
         ProductBasket basket = new ProductBasket(basketProduct, 5);
 
         //добавляем в корзину продукты
         basket.addProduct(table);
-        basket.addProduct(table);
-        basket.addProduct(chair);
+        basket.addProduct(lamp);
+        basket.addProduct(sofa);
         basket.addProduct(chair);
         basket.addProduct(tv);
         // добавляем в корзину лишний продукт

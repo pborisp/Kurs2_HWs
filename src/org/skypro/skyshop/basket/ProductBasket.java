@@ -36,6 +36,20 @@ public class ProductBasket {
         return sum;
     }
 
+    public int sumSpecial() {
+        int count = 0;
+        if (this.productBasket[0] == null) {
+            count = 0;
+            return count;
+        }
+        for (int i = 0; i < this.size; i++) {
+            if (this.productBasket[i].isSpecial()) {
+                count++;
+            }
+        }
+        return count;
+    }
+
     public void printBasket() {
         if (this.productBasket[0] == null) {
             System.out.println("в корзине пусто");
@@ -48,6 +62,7 @@ public class ProductBasket {
             }
         }
         System.out.println("Итого: " + sumPrice() + " рублей");
+        System.out.println("Специальных товаров: " + sumSpecial() + " шт");
         System.out.println();
     }
 
