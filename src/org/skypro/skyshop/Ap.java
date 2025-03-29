@@ -16,9 +16,7 @@ public class Ap {
         Product lamp = new fixPriceProduct("светильник");
 
         // объект корзина
-        Product[] basketProduct = new Product[5];
-
-        ProductBasket basket = new ProductBasket(basketProduct, 5);
+        ProductBasket basket = new ProductBasket(5);
 
         //добавляем в корзину продукты
         basket.addProduct(table);
@@ -28,9 +26,9 @@ public class Ap {
         basket.addProduct(tv);
         // добавляем в корзину лишний продукт
         basket.addProduct(tv);
+        System.out.println();
 
         basket.printBasket();
-        basket.sumPrice();
 
         // поиск продукта в корзине
         if (basket.findProduct(table.getNameProduct())) {
@@ -41,8 +39,5 @@ public class Ap {
 
         basket.cleanBasket();
         basket.printBasket();
-        basket.sumPrice();
-
-
     }
 }
