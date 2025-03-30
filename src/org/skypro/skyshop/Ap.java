@@ -1,16 +1,20 @@
 package org.skypro.skyshop;
 
+import org.skypro.skyshop.article.Article;
 import org.skypro.skyshop.basket.ProductBasket;
 import org.skypro.skyshop.product.DiscountedProduct;
 import org.skypro.skyshop.product.Product;
 import org.skypro.skyshop.product.SimpleProduct;
 import org.skypro.skyshop.product.fixPriceProduct;
+import org.skypro.skyshop.searchEngine.SearchEngine;
+
+import java.util.Arrays;
 
 public class Ap {
     public static void main(String[] args) {
         Product table = new SimpleProduct("Стол", 15000);
         Product chair = new SimpleProduct("Стул", 7000);
-        Product tv = new SimpleProduct("телевизор", 75000);
+        Product tv = new SimpleProduct("телевизор 2025", 75000);
         Product phone = new DiscountedProduct("телефон", 90000, 30);
         Product sofa = new DiscountedProduct("диван", 49000, 25);
         Product lamp = new fixPriceProduct("светильник");
@@ -39,5 +43,43 @@ public class Ap {
 
         basket.cleanBasket();
         basket.printBasket();
+
+        // Реализация поиска
+        SearchEngine searchEngine = new SearchEngine(10);
+
+        //Создание объектов статей
+        Article weather = new Article("Погода март 2025 ", " Погода в этом году в марте как в мае!");
+        Article set = new Article(" Комплект мебели со стулом", " Комплектом покупать всегда выгоднее: стол + стул + диван");
+
+        //Добавляем в объекты в массив
+        searchEngine.add(table);
+        searchEngine.add(chair);
+        searchEngine.add(tv);
+        searchEngine.add(phone);
+        searchEngine.add(sofa);
+        searchEngine.add(lamp);
+        searchEngine.add(weather);
+        searchEngine.add(set);
+
+
+        // Тестирование
+        System.out.println("Результаты поиска 1:");
+        System.out.println(Arrays.toString(searchEngine.search("свет")));
+
+        System.out.println();
+        System.out.println("Результаты поиска 2: ");
+        System.out.println(Arrays.toString(searchEngine.search("2025")));
+
+        System.out.println();
+        System.out.println("Результаты поиска 3: ");
+        System.out.println(Arrays.toString(searchEngine.search("л")));
+
+        System.out.println();
+        System.out.println("Результаты поиска 4: ");
+        System.out.println(Arrays.toString(searchEngine.search("мае")));
+
+        System.out.println();
+        System.out.println("Результаты поиска 5: ");
+        System.out.println(Arrays.toString(searchEngine.search("теле")));
     }
 }
