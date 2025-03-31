@@ -4,15 +4,13 @@ import org.skypro.skyshop.Searchable;
 
 public class SearchEngine {
     private Searchable[] searchables;
-    public int count;
 
     public SearchEngine(int size) {
         searchables = new Searchable[size];
-        this.count = 0;
     }
 
     public String[] search(String searchTerm) {
-        count = 0;
+        int count = 0;
         String[] searchRezult = new String[5];
         for (int i = 0; i < searchables.length; i++) {
             if (searchables[i] != null && searchables[i].searchTerm().contains(searchTerm)) {
@@ -27,12 +25,11 @@ public class SearchEngine {
     }
 
     public void add(Searchable searchable) {
-        if (count == searchables.length) {
-            System.out.println("Невозможно добавить продукт");
-            return;
+        for (int i = 0; i < searchables.length; i++) {
+            if (searchables[i] == null) {
+                searchables[i]  = searchable;
+                return;
+            }
         }
-        searchables[count] = searchable;
-        System.out.println(searchables[count]);
-        count++;
     }
 }

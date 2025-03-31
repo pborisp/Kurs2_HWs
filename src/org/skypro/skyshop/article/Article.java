@@ -2,7 +2,7 @@ package org.skypro.skyshop.article;
 
 import org.skypro.skyshop.Searchable;
 
-public class Article implements Searchable {
+public final class Article implements Searchable {
     private String nameArticle;
     private String textArticle;
 
@@ -25,6 +25,6 @@ public class Article implements Searchable {
 
     @Override
     public String typeContent() {
-        return " ARTICLE ";
+        return "ARTICLE";
     }
 }

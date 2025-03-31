@@ -43,6 +43,7 @@ public class Ap {
 
         basket.cleanBasket();
         basket.printBasket();
+        System.out.println();
 
         // Реализация поиска
         SearchEngine searchEngine = new SearchEngine(10);
