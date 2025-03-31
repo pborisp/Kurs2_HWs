@@ -7,52 +7,46 @@ import java.util.Objects;
 
 public class ProductBasket {
     private Product[] productBasket;
-    private int size;
+    private int count;
 
-    public ProductBasket(Product[] productBasket, int size) {
-        this.size = size;
-        this.productBasket = productBasket;
+    public ProductBasket(int size) {
+        productBasket = new Product[size];
+        count = 0;
     }
 
     public void addProduct(Product product) {
-        for (int i = 0; i < this.size; i++) {
-            if (this.productBasket[i] == null) {
-                this.productBasket[i] = product;
-                return;
-            }
+        if (count == productBasket.length) {
+            System.out.println("Невозможно добавить продукт");
+            return;
         }
-        System.out.println("Невозможно добавить продукт");
-    }
-
-    public int sumPrice() {
-        int sum = 0;
-        if (this.productBasket[0] == null) {
-            sum = 0;
-            return sum;
-        }
-        for (int i = 0; i < this.size; i++) {
-            sum += this.productBasket[i].getPrice();
-        }
-        return sum;
+        productBasket[count] = product;
+        count++;
     }
 
     public void printBasket() {
         if (this.productBasket[0] == null) {
             System.out.println("в корзине пусто");
-            System.out.println("Итого: " + sumPrice());
+            System.out.println("Итого: 0 рублей");
             return;
         }
-        for (int i = 0; i < this.size; i++) {
+        int sum = 0;
+        int countSpecial = 0;
+        for (int i = 0; i < productBasket.length; i++) {
             if (this.productBasket[i] != null) {
+                sum += this.productBasket[i].getPrice();
                 System.out.println(this.productBasket[i]);
             }
+            if (this.productBasket[i].isSpecial()) {
+                countSpecial++;
+            }
         }
-        System.out.println("Итого: " + sumPrice() + " рублей");
+        System.out.println("Итого: " + sum + " рублей");
+        System.out.println("Специальных товаров: " + countSpecial + " шт");
         System.out.println();
     }
 
     public boolean findProduct(String name) {
-        for (int i = 0; i < this.size; i++) {
+        for (int i = 0; i < productBasket.length; i++) {
             if (this.productBasket[i].getNameProduct().equals(name)) {
                 return true;
             }
@@ -61,7 +55,7 @@ public class ProductBasket {
     }
 
     public void cleanBasket() {
-        for (int i = 0; i < this.size; i++) {
+        for (int i = 0; i < productBasket.length; i++) {
             this.productBasket[i] = null;
         }
     }
@@ -70,8 +64,8 @@ public class ProductBasket {
         return productBasket[0];
     }
 
-    public int getSize() {
-        return size;
+    public int getCount() {
+        return count;
     }
 
     @Override
