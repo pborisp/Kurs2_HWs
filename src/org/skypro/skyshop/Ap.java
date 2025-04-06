@@ -12,12 +12,18 @@ import java.util.Arrays;
 
 public class Ap {
     public static void main(String[] args) {
+
         Product table = new SimpleProduct("Стол", 15000);
-        Product chair = new SimpleProduct("Стул", 7000);
+        Product chair = new SimpleProduct("Стулллллллллллл", 7000);
         Product tv = new SimpleProduct("телевизор 2025", 75000);
         Product phone = new DiscountedProduct("телефон", 90000, 30);
         Product sofa = new DiscountedProduct("диван", 49000, 25);
         Product lamp = new fixPriceProduct("светильник");
+        Product soundbar = new DiscountedProduct("колонка", -17000, 15);
+        Product bed = new SimpleProduct(" ", 34000);
+        Product test = new SimpleProduct("ст стстстстстстстстсст", 200);
+
+
 
         // объект корзина
         ProductBasket basket = new ProductBasket(5);
@@ -58,6 +64,7 @@ public class Ap {
         searchEngine.add(tv);
         searchEngine.add(phone);
         searchEngine.add(sofa);
+        searchEngine.add(test);
         searchEngine.add(lamp);
         searchEngine.add(weather);
         searchEngine.add(set);
@@ -82,5 +89,30 @@ public class Ap {
         System.out.println();
         System.out.println("Результаты поиска 5: ");
         System.out.println(Arrays.toString(searchEngine.search("теле")));
+
+        String stringFind = "ст";
+        System.out.println();
+        System.out.println("Результаты поиска повторов строки: ");
+        checkRezult(searchEngine.findSearchMaxRepeat(stringFind), stringFind);
+        System.out.println(searchEngine.findSearchMaxRepeat(stringFind));
+
+        stringFind = "стdc";
+        System.out.println();
+        checkRezult(searchEngine.findSearchMaxRepeat(stringFind), stringFind);
+        System.out.println(searchEngine.findSearchMaxRepeat(stringFind));
+    }
+
+    public static void check(Searchable str) throws BestResultNotFound {
+        if (str == null) {
+            throw new BestResultNotFound();
+        }
+    }
+
+    public static void checkRezult(Searchable str, String text) {
+        try {
+            check(str);
+        } catch (BestResultNotFound e) {
+            System.out.print("По запросу '" + text + "' ничего не найдено ");
+        }
     }
 }

@@ -5,6 +5,11 @@ public class SimpleProduct extends Product {
 
     public SimpleProduct(String nameProduct, int price) {
         super(nameProduct);
+        try {
+            definitionPrice(price);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Цена не может быть меньше или равна 0");
+        }
         this.price = price;
     }
 

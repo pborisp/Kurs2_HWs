@@ -6,9 +6,21 @@ public class DiscountedProduct extends Product {
 
     public DiscountedProduct(String nameProduct, int basePrice, int discount) {
         super(nameProduct);
+        try {
+            definitionBasePrice(basePrice);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Цена не может быть меньше или равна 0");
+        }
         this.basePrice = basePrice;
+        try {
+            definitionDiscount(discount);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Процент скидки должен быть в диапазоне от 0 до 100 включительно");
+        }
         this.discount = discount;
     }
+
+
 
     @Override
     public int getPrice() {
