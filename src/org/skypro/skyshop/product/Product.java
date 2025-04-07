@@ -3,7 +3,7 @@ package org.skypro.skyshop.product;
 import org.skypro.skyshop.Searchable;
 
 public abstract class Product implements Searchable {
-    protected String nameProduct;
+    private String nameProduct;
 
     public Product(String nameProduct) {
         try {
@@ -48,12 +48,12 @@ public abstract class Product implements Searchable {
     public abstract int getPrice();
 
     @Override
-    public String searchTerm() {
+    public String getSearchTerm() {
         return nameProduct;
     }
 
     @Override
-    public String typeContent() {
+    public String getTypeContent() {
         return "PRODUCT";
     }
 

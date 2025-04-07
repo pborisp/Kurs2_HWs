@@ -10,22 +10,22 @@ public class SearchEngine implements Searchable {
         searchables = new Searchable[size];
     }
 
-    public String[] search(String searchTerm) {
+    public String[] search(String searchTerm) throws BestResultNotFound{
         int count = 0;
-        String[] searchRezult = new String[5];
+        String[] searchResult = new String[5];
         for (int i = 0; i < searchables.length; i++) {
-            if (searchables[i] != null && searchables[i].searchTerm().contains(searchTerm)) {
-                searchRezult[count] = searchables[i].getStringRepresentation(searchTerm);
+            if (searchables[i] != null && searchables[i].getSearchTerm().contains(searchTerm)) {
+                searchResult[count] = searchables[i].getStringRepresentation(searchTerm);
                 count++;
-                if (count == searchRezult.length) {
-                    return searchRezult;
+                if (count == searchResult.length) {
+                    return searchResult;
                 }
             }
         }
-        return searchRezult;
+        return searchResult;
     }
 
-    public Searchable findSearchMaxRepeat(String subString) {
+    public Searchable findSearchMaxRepeat(String subString) throws BestResultNotFound {
         Searchable rezult = null;
         int maxCount = 1;
         int count = 0;
@@ -41,16 +41,31 @@ public class SearchEngine implements Searchable {
             count = 0;
             int index = 0;
             if (searchables[i] != null) {
-                int indexStr = searchables[i].searchTerm().indexOf(subString, index);
+                int indexStr = searchables[i].getSearchTerm().indexOf(subString, index);
                 while (indexStr != -1) {
                     count++;
                     index = indexStr + subString.length();
-                    indexStr = searchables[i].searchTerm().indexOf(subString, index);
+                    indexStr = searchables[i].getSearchTerm().indexOf(subString, index);
                 }
             }
         }
+        checkResult(rezult, subString);
         return rezult;
     }
+    public static void checkResult(Searchable str, String text) {
+        try {
+            check(str);
+        } catch (BestResultNotFound e) {
+            System.out.print("По запросу '" + text + "' ничего не найдено ");
+        }
+    }
+
+    private static void check(Searchable str) throws BestResultNotFound {
+        if (str == null) {
+            throw new BestResultNotFound();
+        }
+    }
+
 
     public void add(Searchable searchable) {
         for (int i = 0; i < searchables.length; i++) {
@@ -62,12 +77,12 @@ public class SearchEngine implements Searchable {
     }
 
     @Override
-    public String searchTerm() {
+    public String getSearchTerm() {
         return "";
     }
 
     @Override
-    public String typeContent() {
+    public String getTypeContent() {
         return "";
     }
 }

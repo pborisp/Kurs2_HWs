@@ -18,13 +18,13 @@ public final class Article implements Searchable {
     }
 
     @Override
-    public String searchTerm() {
+    public String getSearchTerm() {
         return "Название статьи: " + nameArticle + '\'' +
                 " Текст статьи: " + textArticle + '\'';
     }
 
     @Override
-    public String typeContent() {
+    public String getTypeContent() {
         return "ARTICLE";
     }
 }

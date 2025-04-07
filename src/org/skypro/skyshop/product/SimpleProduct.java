@@ -25,7 +25,7 @@ public class SimpleProduct extends Product {
 
     @Override
     public String toString() {
-        return nameProduct + '\'' +
-                " : " + price + " рублей";
+        return super.toString()
+        + '\'' + " : " + price + " рублей";
     }
 }
