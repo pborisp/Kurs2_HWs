@@ -8,7 +8,9 @@ import org.skypro.skyshop.product.SimpleProduct;
 import org.skypro.skyshop.product.FixPriceProduct;
 import org.skypro.skyshop.searchEngine.SearchEngine;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class Ap {
     public static void main(String[] args) {
@@ -26,15 +28,15 @@ public class Ap {
 
 
         // объект корзина
-        ProductBasket basket = new ProductBasket(5);
+        ProductBasket basket = new ProductBasket();
 
         //добавляем в корзину продукты
         basket.addProduct(table);
         basket.addProduct(lamp);
+        basket.addProduct(tv);
         basket.addProduct(sofa);
         basket.addProduct(chair);
         basket.addProduct(tv);
-        // добавляем в корзину лишний продукт
         basket.addProduct(tv);
         System.out.println();
 
@@ -46,49 +48,70 @@ public class Ap {
         } else {
             System.out.println("Продукта нет в корзине");
         }
+        System.out.println();
+
+        //удаление продукта по имени из корзины
+        List<Product> listDellProducts = new ArrayList<>();
+        listDellProducts = basket.dellProduct(tv.getNameProduct());
+        if (listDellProducts.isEmpty()){
+            System.out.println("Список пуст!");
+        } else {
+            System.out.println(listDellProducts);
+        }
+        System.out.println();
+        //удаление несуществующего продукта по имени из корзины
+        listDellProducts = basket.dellProduct(tv.getNameProduct());
+        if (listDellProducts.isEmpty()){
+            System.out.println("Список пуст!");
+        } else {
+            System.out.println(listDellProducts);
+        }
+        System.out.println();
 
         basket.cleanBasket();
         basket.printBasket();
         System.out.println();
 
         // Реализация поиска
-        SearchEngine searchEngine = new SearchEngine(10);
+        SearchEngine searchEngine = new SearchEngine();
 
         //Создание объектов статей
         Article weather = new Article("Погода март 2025 ", " Погода в этом году в марте как в мае!");
         Article set = new Article(" Комплект мебели со стулом", " Комплектом покупать всегда выгоднее: стол + стул + диван");
 
         //Добавляем в объекты в массив
-        searchEngine.add(table);
-        searchEngine.add(chair);
-        searchEngine.add(tv);
-        searchEngine.add(phone);
-        searchEngine.add(sofa);
-        searchEngine.add(test);
-        searchEngine.add(lamp);
-        searchEngine.add(weather);
-        searchEngine.add(set);
+        searchEngine.addSerch(table);
+        searchEngine.addSerch(chair);
+        searchEngine.addSerch(tv);
+        searchEngine.addSerch(phone);
+        searchEngine.addSerch(sofa);
+        searchEngine.addSerch(test);
+        searchEngine.addSerch(lamp);
+        searchEngine.addSerch(weather);
+        searchEngine.addSerch(set);
 
 
         // Тестирование
         System.out.println("Результаты поиска 1:");
-        System.out.println(Arrays.toString(searchEngine.search("свет")));
+        List<String> s = new ArrayList<>();
+        s = searchEngine.search("свет");
+        System.out.println(s);
 
         System.out.println();
         System.out.println("Результаты поиска 2: ");
-        System.out.println(Arrays.toString(searchEngine.search("2025")));
+        System.out.println(searchEngine.search("2025"));
 
         System.out.println();
         System.out.println("Результаты поиска 3: ");
-        System.out.println(Arrays.toString(searchEngine.search("л")));
+        System.out.println(searchEngine.search("л"));
 
         System.out.println();
         System.out.println("Результаты поиска 4: ");
-        System.out.println(Arrays.toString(searchEngine.search("мае")));
+        System.out.println(searchEngine.search("мае"));
 
         System.out.println();
         System.out.println("Результаты поиска 5: ");
-        System.out.println(Arrays.toString(searchEngine.search("теле")));
+        System.out.println(searchEngine.search("теле"));
 
         String stringFind = "ст";
         System.out.println();
