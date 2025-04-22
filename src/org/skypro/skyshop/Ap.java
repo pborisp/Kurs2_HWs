@@ -52,7 +52,7 @@ public class Ap {
 
         //удаление продукта по имени из корзины
         List<Product> listDellProducts = new ArrayList<>();
-        listDellProducts = basket.dellProduct(tv.getNameProduct());
+        listDellProducts = basket.dellProduct("телевизор 2025");
         if (listDellProducts.isEmpty()){
             System.out.println("Список пуст!");
         } else {
@@ -60,7 +60,7 @@ public class Ap {
         }
         System.out.println();
         //удаление несуществующего продукта по имени из корзины
-        listDellProducts = basket.dellProduct(tv.getNameProduct());
+        listDellProducts = basket.dellProduct("машина");
         if (listDellProducts.isEmpty()){
             System.out.println("Список пуст!");
         } else {
