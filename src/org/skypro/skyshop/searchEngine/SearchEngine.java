@@ -15,7 +15,9 @@ public class SearchEngine implements Searchable {
     }
 
     public void addSerch(Searchable searchable) {
-        this.searchables.add(searchable);
+        if (searchable != null) {
+            this.searchables.add(searchable);
+        }
     }
 
     public List<String> search(String searchTerm) throws BestResultNotFound {
@@ -43,13 +45,11 @@ public class SearchEngine implements Searchable {
             }
             count = 0;
             int index = 0;
-            if (searchables.get(i) != null) {
-                int indexStr = searchables.get(i).getSearchTerm().indexOf(subString, index);
-                while (indexStr != -1) {
-                    count++;
-                    index = indexStr + subString.length();
-                    indexStr = searchables.get(i).getSearchTerm().indexOf(subString, index);
-                }
+            int indexStr = searchables.get(i).getSearchTerm().indexOf(subString, index);
+            while (indexStr != -1) {
+                count++;
+                index = indexStr + subString.length();
+                indexStr = searchables.get(i).getSearchTerm().indexOf(subString, index);
             }
         }
         checkResult(rezult, subString);

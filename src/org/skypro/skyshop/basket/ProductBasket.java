@@ -12,11 +12,13 @@ public class ProductBasket {
     }
 
     public void addProduct(Product product) {
-        productBasket.add(product);
+        if (product != null) {
+            productBasket.add(product);
+        }
     }
 
     public void printBasket() {
-        if (isNullOrEmpty(productBasket)) {
+        if (productBasket.isEmpty()) {
             System.out.println("в корзине пусто");
             System.out.println("Итого: 0 рублей");
             return;
@@ -39,7 +41,7 @@ public class ProductBasket {
 
     public boolean findProduct(String name) {
         for (int i = 0; i < productBasket.size(); i++) {
-            if (this.productBasket.isEmpty() || this.productBasket.get(i).getNameProduct().equals(name)) {
+            if (this.productBasket.get(i).getNameProduct().equals(name)) {
                 return true;
             }
         }
@@ -47,7 +49,7 @@ public class ProductBasket {
     }
 
     public void cleanBasket() {
-            this.productBasket.clear();
+        this.productBasket.clear();
     }
 
     public List<Product> dellProduct(String name) {
@@ -61,10 +63,6 @@ public class ProductBasket {
             }
         }
         return listDellProducts;
-    }
-
-    public boolean isNullOrEmpty(List<?> list) {
-        return list == null || list.isEmpty();
     }
 
     @Override
