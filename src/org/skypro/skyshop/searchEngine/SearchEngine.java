@@ -4,8 +4,7 @@ import org.skypro.skyshop.BestResultNotFound;
 import org.skypro.skyshop.Searchable;
 import org.skypro.skyshop.product.Product;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class SearchEngine implements Searchable {
     private List<Searchable> searchables;
@@ -20,11 +19,11 @@ public class SearchEngine implements Searchable {
         }
     }
 
-    public List<String> search(String searchTerm) throws BestResultNotFound {
-        List<String> searchResult = new ArrayList<>();
+    public Map<String, Searchable> search(String searchTerm) throws BestResultNotFound {
+        Map<String, Searchable> searchResult = new TreeMap<>();
         for (int i = 0; i < searchables.size(); i++) {
             if (searchables.get(i).getSearchTerm().contains(searchTerm)) {
-                searchResult.add(searchables.get(i).getStringRepresentation(searchTerm));
+                searchResult.put(searchables.get(i).getSearchTerm(), searchables.get(i));
             }
         }
         return searchResult;
@@ -79,5 +78,24 @@ public class SearchEngine implements Searchable {
     @Override
     public String getTypeContent() {
         return "";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        SearchEngine that = (SearchEngine) o;
+        return Objects.equals(searchables, that.searchables);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(searchables);
+    }
+
+    @Override
+    public String toString() {
+        return "SearchEngine{" +
+                "searchables=" + searchables +
+                '}';
     }
 }

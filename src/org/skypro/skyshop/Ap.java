@@ -20,7 +20,7 @@ public class Ap {
         Product tv = new SimpleProduct("телевизор 2025", 75000);
         Product phone = new DiscountedProduct("телефон", 90000, 30);
         Product sofa = new DiscountedProduct("диван", 49000, 25);
-        Product lamp = new FixPriceProduct("светильник");
+        Product lamp = new FixPriceProduct("1светильник");
         Product soundbar = new DiscountedProduct("колонка", -17000, 15);
         Product bed = new SimpleProduct(" ", 34000);
         Product test = new SimpleProduct("ст стстстстстстстстсст", 200);
@@ -93,9 +93,7 @@ public class Ap {
 
         // Тестирование
         System.out.println("Результаты поиска 1:");
-        List<String> s = new ArrayList<>();
-        s = searchEngine.search("свет");
-        System.out.println(s);
+        System.out.println(searchEngine.search("свет"));
 
         System.out.println();
         System.out.println("Результаты поиска 2: ");
@@ -107,11 +105,11 @@ public class Ap {
 
         System.out.println();
         System.out.println("Результаты поиска 4: ");
-        System.out.println(searchEngine.search("мае"));
+        System.out.println(searchEngine.search("ма"));
 
         System.out.println();
         System.out.println("Результаты поиска 5: ");
-        System.out.println(searchEngine.search("теле"));
+        System.out.println(searchEngine.search("ст"));
 
         String stringFind = "ст";
         System.out.println();
