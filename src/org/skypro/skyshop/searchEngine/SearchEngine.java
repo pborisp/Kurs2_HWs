@@ -6,11 +6,11 @@ import org.skypro.skyshop.product.Product;
 
 import java.util.*;
 
-public class SearchEngine implements Searchable {
-    private List<Searchable> searchables;
+public class SearchEngine implements Searchable{
+    private Set<Searchable> searchables;
 
     public SearchEngine() {
-        this.searchables = new ArrayList<>();
+        this.searchables = new HashSet<>();
     }
 
     public void addSerch(Searchable searchable) {
@@ -19,11 +19,11 @@ public class SearchEngine implements Searchable {
         }
     }
 
-    public Map<String, Searchable> search(String searchTerm) throws BestResultNotFound {
-        Map<String, Searchable> searchResult = new TreeMap<>();
-        for (int i = 0; i < searchables.size(); i++) {
-            if (searchables.get(i).getSearchTerm().contains(searchTerm)) {
-                searchResult.put(searchables.get(i).getSearchTerm(), searchables.get(i));
+    public Set<Searchable> search(String searchTerm) throws BestResultNotFound {
+        Set<Searchable> searchResult = new TreeSet<>(new longStringComparator());
+        for (Searchable searchable : searchables) {
+            if (searchable.getSearchTerm().contains(searchTerm)) {
+                searchResult.add(searchable);
             }
         }
         return searchResult;
@@ -33,22 +33,18 @@ public class SearchEngine implements Searchable {
         Searchable rezult = null;
         int maxCount = 1;
         int count = 0;
-        for (int i = 0; i < searchables.size(); i++) {
-            if (count > maxCount) {
-                maxCount = count;
-                if (i < 1) {
-                    rezult = searchables.get(i);
-                } else {
-                    rezult = searchables.get(i - 1);
-                }
-            }
+        for (Searchable searchable : searchables) {
             count = 0;
             int index = 0;
-            int indexStr = searchables.get(i).getSearchTerm().indexOf(subString, index);
+            int indexStr = searchable.getSearchTerm().indexOf(subString, index);
             while (indexStr != -1) {
                 count++;
                 index = indexStr + subString.length();
-                indexStr = searchables.get(i).getSearchTerm().indexOf(subString, index);
+                indexStr = searchable.getSearchTerm().indexOf(subString, index);
+            }
+            if (count > maxCount) {
+                maxCount = count;
+                rezult = searchable;
             }
         }
         checkResult(rezult, subString);
@@ -97,5 +93,17 @@ public class SearchEngine implements Searchable {
         return "SearchEngine{" +
                 "searchables=" + searchables +
                 '}';
+    }
+    public static class longStringComparator implements Comparator<Searchable> {
+        @Override
+        public int compare(Searchable o1, Searchable o2) {
+            Integer sizeName1, sizeName2;
+            sizeName1 = o1.getSearchTerm().length();
+            sizeName2 = o2.getSearchTerm().length();
+            if (sizeName1 == sizeName2) {
+                return o1.getSearchTerm().compareTo(o2.getSearchTerm());
+            }
+            return sizeName2.compareTo(sizeName1);
+        }
     }
 }

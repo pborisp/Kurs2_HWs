@@ -20,7 +20,7 @@ public class Ap {
         Product tv = new SimpleProduct("телевизор 2025", 75000);
         Product phone = new DiscountedProduct("телефон", 90000, 30);
         Product sofa = new DiscountedProduct("диван", 49000, 25);
-        Product lamp = new FixPriceProduct("1светильник");
+        Product lamp = new FixPriceProduct("1светильник2025");
         Product soundbar = new DiscountedProduct("колонка", -17000, 15);
         Product bed = new SimpleProduct(" ", 34000);
         Product test = new SimpleProduct("ст стстстстстстстстсст", 200);
@@ -111,9 +111,10 @@ public class Ap {
         System.out.println("Результаты поиска 5: ");
         System.out.println(searchEngine.search("ст"));
 
-        String stringFind = "ст";
         System.out.println();
         System.out.println("Результаты поиска повторов строки: ");
+        String stringFind = "ст";
+        System.out.println();
         System.out.println(searchEngine.findSearchMaxRepeat(stringFind));
 
         stringFind = "е";
