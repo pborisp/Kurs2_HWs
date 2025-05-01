@@ -2,76 +2,70 @@ package org.skypro.skyshop.basket;
 
 import org.skypro.skyshop.product.Product;
 
-import java.util.Arrays;
-import java.util.Objects;
+import java.util.*;
 
 public class ProductBasket {
-    private Product[] productBasket;
-    private int size;
+    private Map<String, List<Product>> productBasket;
+    int sum;
+    int countSpecial;
 
-    public ProductBasket(Product[] productBasket, int size) {
-        this.size = size;
-        this.productBasket = productBasket;
+    public ProductBasket() {
+        this.productBasket = new HashMap<>();
+        this.sum = 0;
+        this.countSpecial = 0;
     }
 
     public void addProduct(Product product) {
-        for (int i = 0; i < this.size; i++) {
-            if (this.productBasket[i] == null) {
-                this.productBasket[i] = product;
-                return;
-            }
+        productBasket.computeIfAbsent(product.getNameProduct(), k -> new ArrayList<>()).add(product);
+        this.sum += product.getPrice();
+        if (product.isSpecial()) {
+            countSpecial++;
         }
-        System.out.println("Невозможно добавить продукт");
-    }
-
-    public int sumPrice() {
-        int sum = 0;
-        if (this.productBasket[0] == null) {
-            sum = 0;
-            return sum;
-        }
-        for (int i = 0; i < this.size; i++) {
-            sum += this.productBasket[i].getPrice();
-        }
-        return sum;
     }
 
     public void printBasket() {
-        if (this.productBasket[0] == null) {
+        if (productBasket.isEmpty()) {
             System.out.println("в корзине пусто");
-            System.out.println("Итого: " + sumPrice());
+            System.out.println("Итого: 0 рублей");
             return;
         }
-        for (int i = 0; i < this.size; i++) {
-            if (this.productBasket[i] != null) {
-                System.out.println(this.productBasket[i]);
-            }
+
+        for (Map.Entry<String, List<Product>> product : productBasket.entrySet()) {
+            System.out.println(product.getKey() + product.getValue());
         }
-        System.out.println("Итого: " + sumPrice() + " рублей");
+        System.out.println("Итого: " + this.sum + " рублей");
+        System.out.println("Специальных товаров: " + countSpecial + " шт");
         System.out.println();
     }
 
     public boolean findProduct(String name) {
-        for (int i = 0; i < this.size; i++) {
-            if (this.productBasket[i].getNameProduct().equals(name)) {
-                return true;
-            }
+        if (this.productBasket.containsKey(name)) {
+            return true;
         }
         return false;
     }
 
+
     public void cleanBasket() {
-        for (int i = 0; i < this.size; i++) {
-            this.productBasket[i] = null;
+        this.productBasket.clear();
+        this.sum = 0;
+        this.countSpecial = 0;
+    }
+
+    public List<Product> dellProduct(String name) {
+        List<Product> listDellProducts = new ArrayList<>();
+        if (this.productBasket.containsKey(name)) {
+            listDellProducts = this.productBasket.get(name);
+            this.productBasket.remove(name);
         }
+        return listDellProducts;
     }
 
-    public Product getProduct() {
-        return productBasket[0];
-    }
-
-    public int getSize() {
-        return size;
+    @Override
+    public String toString() {
+        return "ProductBasket{" +
+                "productBasket=" + productBasket +
+                '}';
     }
 
     @Override
@@ -83,6 +77,6 @@ public class ProductBasket {
 
     @Override
     public int hashCode() {
-        return Arrays.hashCode(productBasket);
+        return Objects.hashCode(productBasket);
     }
 }
