@@ -2,11 +2,10 @@ package org.skypro.skyshop.searchEngine;
 
 import org.skypro.skyshop.BestResultNotFound;
 import org.skypro.skyshop.Searchable;
-import org.skypro.skyshop.product.Product;
 
 import java.util.*;
 
-public class SearchEngine implements Searchable{
+public class SearchEngine{
     private Set<Searchable> searchables;
 
     public SearchEngine() {
@@ -20,7 +19,7 @@ public class SearchEngine implements Searchable{
     }
 
     public Set<Searchable> search(String searchTerm) throws BestResultNotFound {
-        Set<Searchable> searchResult = new TreeSet<>(new longStringComparator());
+        Set<Searchable> searchResult = new TreeSet<>(new LongStringComparator());
         for (Searchable searchable : searchables) {
             if (searchable.getSearchTerm().contains(searchTerm)) {
                 searchResult.add(searchable);
@@ -65,17 +64,6 @@ public class SearchEngine implements Searchable{
         }
     }
 
-
-    @Override
-    public String getSearchTerm() {
-        return "";
-    }
-
-    @Override
-    public String getTypeContent() {
-        return "";
-    }
-
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
@@ -93,17 +81,5 @@ public class SearchEngine implements Searchable{
         return "SearchEngine{" +
                 "searchables=" + searchables +
                 '}';
-    }
-    public static class longStringComparator implements Comparator<Searchable> {
-        @Override
-        public int compare(Searchable o1, Searchable o2) {
-            Integer sizeName1, sizeName2;
-            sizeName1 = o1.getSearchTerm().length();
-            sizeName2 = o2.getSearchTerm().length();
-            if (sizeName1 == sizeName2) {
-                return o1.getSearchTerm().compareTo(o2.getSearchTerm());
-            }
-            return sizeName2.compareTo(sizeName1);
-        }
     }
 }

@@ -9,7 +9,6 @@ import org.skypro.skyshop.product.FixPriceProduct;
 import org.skypro.skyshop.searchEngine.SearchEngine;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Ap {
