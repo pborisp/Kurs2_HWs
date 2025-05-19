@@ -27,11 +27,6 @@ public class ProductBasket {
                 .flatMap(Collection::stream)
                         .forEach(System.out::println);
 
-       productBasket.values().stream()
-                .flatMap(Collection::stream)
-                .mapToInt(Product::getPrice)
-                .sum();
-
         System.out.println("Итого: " + productBasket.values().stream()
                 .flatMap(Collection::stream)
                 .mapToInt(Product::getPrice)

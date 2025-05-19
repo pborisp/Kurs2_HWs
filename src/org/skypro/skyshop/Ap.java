@@ -65,6 +65,7 @@ public class Ap {
         } else {
             System.out.println(listDellProducts);
         }
+        basket.addProduct(phone);
         System.out.println();
         basket.printBasket();
         System.out.println();
