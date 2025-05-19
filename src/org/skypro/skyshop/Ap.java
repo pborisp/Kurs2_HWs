@@ -66,6 +66,8 @@ public class Ap {
             System.out.println(listDellProducts);
         }
         System.out.println();
+        basket.printBasket();
+        System.out.println();
 
         basket.cleanBasket();
         basket.printBasket();
